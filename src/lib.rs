@@ -68,6 +68,7 @@ impl LlvmTools {
 }
 
 /// Errors that can occur during the construction of [`LlvmTools`].
+#[derive(Debug)]
 pub enum Error {
     /// Failed to run a command
     CommandExecution(String, io::Error),
