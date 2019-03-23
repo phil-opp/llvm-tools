@@ -31,7 +31,7 @@ impl LlvmTools {
             PathBuf::from(sysroot_string.trim())
         };
 
-        let example_tool_name = Self::exe("llvm-objdump");
+        let example_tool_name = exe("llvm-objdump");
         let rustlib = sysroot.join("lib").join("rustlib");
         for entry in rustlib.read_dir().map_err(Error::ReadDirFailed)? {
             let bin_dir = entry.map_err(Error::ReadEntryFailed)?.path().join("bin");
@@ -56,15 +56,6 @@ impl LlvmTools {
             None
         }
     }
-
-    /// Appends `*.exe` on Windows, returns the original name on other platforms.
-    pub fn exe(executable_name: &str) -> Cow<str> {
-        if cfg!(target_os = "windows") {
-            Cow::Owned(format!("{}.exe", executable_name))
-        } else {
-            Cow::Borrowed(executable_name)
-        }
-    }
 }
 
 /// Errors that can occur during the construction of [`LlvmTools`].
@@ -85,4 +76,13 @@ pub enum Error {
     /// Maybe the rustup component `llvm-tools-preview` is missing? Install it through:
     /// `rustup component add llvm-tools-preview`
     NotFound,
+}
+
+/// Appends `*.exe` on Windows, returns the original name on other platforms.
+pub fn exe(executable_name: &str) -> Cow<str> {
+    if cfg!(target_os = "windows") {
+        Cow::Owned(format!("{}.exe", executable_name))
+    } else {
+        Cow::Borrowed(executable_name)
+    }
 }
