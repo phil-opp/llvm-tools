@@ -2,7 +2,7 @@
 
 #![deny(missing_docs)]
 
-use std::{io, path::PathBuf, process::Command, string::FromUtf8Error, borrow::Cow, ops::Deref};
+use std::{borrow::Cow, io, ops::Deref, path::PathBuf, process::Command, string::FromUtf8Error};
 
 /// Allows to retrieve paths of llvm tools.
 #[derive(Debug)]
