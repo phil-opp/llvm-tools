@@ -58,7 +58,7 @@ impl LlvmTools {
     }
 
     /// Appends `*.exe` on Windows, returns the original name on other platforms.
-    fn exe(executable_name: &str) -> Cow<str> {
+    pub fn exe(executable_name: &str) -> Cow<str> {
         if cfg!(target_os = "windows") {
             Cow::Owned(format!("{}.exe", executable_name))
         } else {
